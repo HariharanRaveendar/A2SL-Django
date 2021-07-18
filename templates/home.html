@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_body %}
+<header>
+	<!--Mask-->
+	<div id="intro" class="view">
+	  <div class="mask rgba-black-strong">
+		<div class="container-fluid d-flex align-items-center justify-content-center h-100">
+		  <div class="row d-flex justify-content-center text-center">
+			<div class="col-md-10">
+			  <!-- Heading -->
+			  <h2 class="display-4 font-weight-bold white-text pt-5 mb-2">Speech To Indain Sign Converter</h2>
+			  <!-- Divider -->
+			  <hr class="hr-light">
+			  <!-- Description -->
+			  <h4 class="white-text my-4">This Project is used to help us communicate with hearing impaired people.
+			  </h4>
+			  <a href="{% url 'animation' %}" class="btn btn-outline-white">Explore<i class="fa fa-book ml-2"></i></a>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<!--/.Mask-->
+  </header>
+  {% endblock main_body %}

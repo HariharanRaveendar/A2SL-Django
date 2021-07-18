@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_body %}
+<header>
+	<!--Mask-->
+	<div id="intro" class="view">
+	  <div class="mask rgba-black-strong">
+		<div class="container-fluid d-flex align-items-center justify-content-center h-100">
+		  <div class="row d-flex justify-content-center text-center">
+			<div class="row ml-2 mr-2 mt-2">
+				<!--Grid column-->
+				<div class="col-md-5 mb-4">
+				  <!--Card-->
+				  <div class="card mb-4 wow fadeIn">
+					<!--Card content-->
+					<div class="card-body">
+					  <form action="" method="post">
+						  {% csrf_token %}
+						  <div class="row">
+							  <div class="form-group col-md-7">
+								  <input type="tex" class="form-control"  name="sen" id="speechToText" placeholder="">
+							  </div>
+							  <div class="col-md-2">
+								  <button type="button" name="button" class="btn btn-sm btn-info" onclick="record()"><img src="{% static 'mic3.png' %}" height="20px" width="20px" /></button>
+							  </div>
+							  <div class="col-md-2">
+								  <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+							  </div>
+						  </div>
+						</form>
+						<table class="table">
+						  <tbody>
+							<tr>
+	  
+							  <td class="td font-weight-bold">The text that you entered is:</td>
+							  <td class="td"><h3><Span class="badge badge-secondary"> {{ text }}</Span></h3></td>
+							</tr>
+							<tr>
+							  <td class="td font-weight-bold">Key words are:</td>
+							  <td class="td">
+								  <ul class="td" id="list" align="center">
+									{% for word in words %}
+									<li id="{{ i }}" class="badge badge-primary" style="margin-right: 8px">{{ word }}</li>
+									{% endfor %}
+								  </ul>
+								  </td>
+							</tr>
+							<tr>
+								
+							</tr>
+						  </tbody>
+						</table>
+					</div>
+				  </div>
+				</div>
+				<div class="col-md-7 mb-4" >
+				  <div class="row"id="change">
+					  <a href="#" class="btn btn-primary" onclick="playPause()">
+						<span class="badge badge-success">Play</span> / 
+						<span class="badge badge-danger">Pause</span> Sign</a>
+					</div>
+						  <video id="videoPlayer" width="600" height="350"  preload="auto" autoplay>
+			  <source src="" type="video/mp4">
+		  Your browser does not support HTML5 video.
+			</video>
+				</div>
+			  </div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<!--/.Mask-->
+  </header>
+
+		<script>
+			//webkitSpeechRecognition api for speech to text conversion
+			function record(){
+				var recognition = new webkitSpeechRecognition();
+				recognition.lang='en-IN';
+		
+				recognition.onresult = function(event){
+					console.log(event)
+					document.getElementById('speechToText').value = event.results[0][0].transcript;
+				}
+				recognition.start();
+			 }
+			function play()
+			{
+				var videoSource = new Array();
+				var	videos = document.getElementById("list").getElementsByTagName("li");
+				var j;
+				for(j=0;j<videos.length;j++)
+				{
+					videoSource[j] = "/static/" + videos[j].innerHTML +".mp4";
+				}
+		
+				var i = 0; // define i
+				var videoCount = videoSource.length;
+		
+				function videoPlay(videoNum)
+				{
+					document.getElementById("list").getElementsByTagName("li")[videoNum].style.color = "#09edc7";
+					document.getElementById("list").getElementsByTagName("li")[videoNum].style.fontSize = "xx-large";
+					document.getElementById("videoPlayer").setAttribute("src", videoSource[videoNum]);
+					document.getElementById("videoPlayer").load();
+					document.getElementById("videoPlayer").play();
+		
+				}
+				document.getElementById('videoPlayer').addEventListener('ended', myHandler, false);
+				document.getElementById("list").getElementsByTagName("li")[0].style.color = "#09edc7";
+				document.getElementById("list").getElementsByTagName("li")[0].style.fontSize = "xx-large";
+		
+				videoPlay(0); // play the video
+		
+				function myHandler()
+				{
+					 document.getElementById("list").getElementsByTagName("li")[i].style.color = "#feda6a";
+					document.getElementById("list").getElementsByTagName("li")[i].style.fontSize = "20px";
+					i++;
+					if (i == videoCount)
+					{
+						   document.getElementById("videoPlayer").pause();
+					}
+					 else
+					 {
+						videoPlay(i);
+					}
+				}
+			}
+			/* LETS USE ONLY PLAY PAUSE BUTTON WITH 720 *420 ,IT FITS THE SCREEN
+			function makeBig() {
+				document.getElementById("videoPlayer").width = 560;
+				document.getElementById("videoPlayer").height = 360;
+			}
+		
+			function makeSmall() {
+				document.getElementById("videoPlayer").width = 320;
+				document.getElementById("videoPlayer").height = 180;
+			}
+		
+			function makeNormal() {
+				document.getElementById("videoPlayer").width = 420;
+				document.getElementById("videoPlayer").height =280;
+			}*/
+			function playPause(){
+				  if (document.getElementById("videoPlayer").paused){
+					play();}
+				  else{
+					document.getElementById("videoPlayer").pause();}
+				}
+		
+			</script>
+{% endblock main_body %}

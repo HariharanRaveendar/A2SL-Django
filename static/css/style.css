@@ -1,0 +1,39 @@
+.top-nav-collapse {
+    background-color: #24355C;
+  }
+  @media (max-width: 768px) {
+    .navbar:not(.top-nav-collapse) {
+      background-color: #24355C;
+    }
+  }
+  @media (min-width: 800px) and (max-width: 850px) {
+    .navbar:not(.top-nav-collapse) {
+      background-color: #24355C;
+    }
+  }
+
+.logo{
+    height: 50px !important;
+    width: 100px !important;
+}
+.card-comments img{width:4rem}
+
+.poparticleimg{
+height: 70px !important;
+width: 70px !important;
+}
+
+
+.droplogo{
+  height: 100px !important; 
+  width: 150px !important;
+}
+
+.my-custom-scrollbar {
+position: relative;
+height: 200px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
