@@ -1,4 +1,4 @@
-<h1> A2SL-Django</h1>
+<h1> AUDIO SPEECH TO SIGN LANGUAGE CONVERTER-Django</h1>
 
 # AUDIO SPEECH TO SIGN LANGUAGE CONVERTER
 A web application which takes in live audio speech recording as input, converts it into text and displays the relevant Indian Sign Language animations.
